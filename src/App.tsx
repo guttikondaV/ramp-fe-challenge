@@ -65,6 +65,12 @@ export function App() {
               return
             }
 
+            if (newValue.id === EMPTY_EMPLOYEE.id) {
+              console.log("Reverting to all transactions")
+              await loadAllTransactions()
+              return
+            }
+
             await loadTransactionsByEmployee(newValue.id)
           }}
         />
