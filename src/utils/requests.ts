@@ -1,12 +1,12 @@
+import mockData from "../mock-data.json"
 import {
+  Employee,
   PaginatedRequestParams,
   PaginatedResponse,
   RequestByEmployeeParams,
   SetTransactionApprovalParams,
   Transaction,
-  Employee,
 } from "./types"
-import mockData from "../mock-data.json"
 
 const TRANSACTIONS_PER_PAGE = 5
 
@@ -48,13 +48,13 @@ export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParam
 }
 
 export const setTransactionApproval = ({ transactionId, value }: SetTransactionApprovalParams): void => {
-  const transaction = data.transactions.find(
-    (currentTransaction) => currentTransaction.id === transactionId
-  )
+  let idx = data.transactions.findIndex((transaction) => transaction.id === transactionId)
+  console.log(data.transactions[idx])
 
-  if (!transaction) {
-    throw new Error("Invalid transaction to approve")
+  if (idx === -1) {
+    throw new Error(`Transaction with id ${transactionId} not found`)
   }
 
-  transaction.approved = value
+  data.transactions[idx].approved = value
+  console.log(data.transactions[idx])
 }
